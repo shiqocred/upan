@@ -24,8 +24,6 @@ export async function POST() {
       return new Response("Data not found.", { status: 404 });
     }
 
-    const markdown = existingDoc.documents[0].response as string;
-
     const htmlContent = `
       <html>
         <head>

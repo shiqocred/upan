@@ -3,7 +3,6 @@ import { createSessionClient } from "@/lib/appwrite";
 import { cookies } from "next/headers";
 import { CORE_ID, DATABASE_ID } from "@/config";
 import { Query } from "node-appwrite";
-import { marked } from "marked";
 import { chromium } from "playwright";
 
 export async function POST() {
@@ -89,8 +88,8 @@ export async function POST() {
             }
           </style>
         </head>
-        <body class="prose prose-sm lg:prose-base prose-p:my-3 prose-ul:my-3 prose-h2:mt-10 prose-h2:mb-2 leading-relaxed prose-p:text-justify prose-li:text-justify prose-hr:border-gray-300">
-          ${marked(markdown)}
+        <body>
+Masih develop
         </body>
       </html>
     `;

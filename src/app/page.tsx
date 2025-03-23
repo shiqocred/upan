@@ -19,7 +19,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-  AlertCircle,
   ArrowRight,
   CalendarIcon,
   Check,
@@ -31,7 +30,6 @@ import {
   CloudUpload,
   Download,
   FileIcon,
-  FileText,
   Loader,
   Search,
   TrendingUpIcon,
@@ -54,9 +52,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Navbar } from "@/components/navbar";
-import { useRouter } from "next/navigation";
 import { useQueryState } from "nuqs";
-import Link from "next/link";
 
 export default function Home() {
   const [copiedTitle, setCopiedTitle] = useState(false);
@@ -74,7 +70,8 @@ export default function Home() {
   const [uploadComplete, setUploadComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useQueryState("page", { defaultValue: "" });
-  const router = useRouter();
+
+  console.log(isLoading, error);
 
   const [current, setCurrent] = useState<{
     message: string;
@@ -182,31 +179,6 @@ export default function Home() {
     noClick: true,
     maxSize: 10 * 1024 * 1024, // 10MB
   });
-
-  const handleUpload = () => {
-    if (!file) return;
-
-    setIsUploading(true);
-    setUploadProgress(0);
-
-    // Simulate upload progress
-    const interval = setInterval(() => {
-      setUploadProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setIsUploading(false);
-          setUploadComplete(true);
-          return 100;
-        }
-        return prev + 5;
-      });
-    }, 100);
-  };
-
-  const handleViewAnalysis = () => {
-    // Navigate to the profile analyzer page
-    router.push("/profile-analyzer");
-  };
 
   const removeFile = () => {
     setFile(null);
@@ -468,11 +440,12 @@ export default function Home() {
                 </div>
 
                 <div className="flex items-center gap-2 flex-none">
-                  <Button className="flex items-center gap-2" asChild>
-                    <Link href="/?page=result">
-                      View Detailed Report
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
+                  <Button
+                    className="flex items-center gap-2"
+                    onClick={() => setPage("result")}
+                  >
+                    View Detailed Report
+                    <ArrowRight className="h-4 w-4" />
                   </Button>
                 </div>
               </div>
